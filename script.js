@@ -32,19 +32,31 @@ const showBooks = function () {
 }
 
 const addButton = document.querySelector('#open');
-// const closeButton = document.querySelector('#close');
-// const dialog = document.querySelector('dialog');
+const closeButton = document.querySelector('#close');
+const dialog = document.querySelector('dialog');
 const form = document.querySelector('form');
+const cardsWrapper = document.querySelector('.cards-wrapper');
 
+addButton.addEventListener('click', function() {
+    dialog.showModal();
+})
 
+// adding books
 form.addEventListener('submit', function(e) {
     e.preventDefault();
+    dialog.close();
     const title = document.querySelector('#title').value;
     const author = document.querySelector('#author').value;
     const pages = document.querySelector('#pages').value;
     const read = document.querySelector('#read').value === 'on' ? true : false;
 
     myLibrary.push(new Book(title, author, pages, read));
+
+    const newDiv = document.createElement('div');
+    cardsWrapper.appendChild(newDiv);
+    newDiv.classList.add('cards');
+    const titleHeader = document.createElement('h3');
+
 
 });
 
