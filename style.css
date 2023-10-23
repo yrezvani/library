@@ -1,0 +1,17 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+form {
+    height: 200px;
+    width: 300px;
+    background-color: aquamarine;
+    border-radius: 10px;
+}
+
+input {
+    padding: 5px;
+    margin: 5px;
+}
