@@ -51,12 +51,25 @@ form.addEventListener('submit', function(e) {
     const read = document.querySelector('#read').value === 'on' ? true : false;
 
     myLibrary.push(new Book(title, author, pages, read));
-
+    // New card
     const newDiv = document.createElement('div');
-    cardsWrapper.appendChild(newDiv);
     newDiv.classList.add('cards');
-    const titleHeader = document.createElement('h3');
-
+    cardsWrapper.appendChild(newDiv);
+    
+    // Card contents
+    const titleEl = document.createElement('h3');
+    titleEl.textContent = title;
+    const authorEl = document.createElement('h3');
+    authorEl.textContent = author;
+    const pagesEl = document.createElement('h3');
+    pagesEl.textContent = pages
+    const readBtn = document.createElement('button');
+    readBtn.textContent = read === true ? 'Read' : 'Not read';
+    read === true ? readBtn.classList.add('read') : readBtn.classList.add('unread');
+    const removeBtn = document.createElement('button');
+    removeBtn.textContent = 'Remove';
+    removeBtn.classList.add('unread');
+    newDiv.append(titleEl, authorEl, pagesEl, readBtn, removeBtn);
 
 });
 
