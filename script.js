@@ -41,16 +41,16 @@ addButton.addEventListener('click', function() {
     dialog.showModal();
 })
 
-// adding books
+// Add books
 form.addEventListener('submit', function(e) {
     e.preventDefault();
     dialog.close();
     const title = document.querySelector('#title').value;
     const author = document.querySelector('#author').value;
     const pages = document.querySelector('#pages').value;
-    const read = document.querySelector('#read').value === 'on' ? true : false;
+    const readVal = document.querySelector('#read').checked;
 
-    myLibrary.push(new Book(title, author, pages, read));
+    myLibrary.push(new Book(title, author, pages, readVal));
     // New card
     const newDiv = document.createElement('div');
     newDiv.classList.add('cards');
@@ -64,18 +64,18 @@ form.addEventListener('submit', function(e) {
     const pagesEl = document.createElement('h3');
     pagesEl.textContent = pages
     const readBtn = document.createElement('button');
-    readBtn.textContent = read === true ? 'Read' : 'Not read';
-    read === true ? readBtn.classList.add('read') : readBtn.classList.add('unread');
+    readBtn.textContent = readVal === true ? 'Read' : 'Not read';
+    console.log(readVal);
+    readVal === true ? readBtn.classList.add('read') : readBtn.classList.add('unread');
     const removeBtn = document.createElement('button');
     removeBtn.textContent = 'Remove';
-    removeBtn.classList.add('unread');
+    removeBtn.classList.add('remove');
     newDiv.append(titleEl, authorEl, pagesEl, readBtn, removeBtn);
 
 });
 
-// addButton.addEventListener('click', function() {
-//     dialog.close();
-// });
+// Remove books (not working)
 
-
-
+removeBtn.addEventListener('click', function() {
+    this.newDiv.remove();
+})
