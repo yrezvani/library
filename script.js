@@ -12,16 +12,6 @@ const Book = function (title, author, pages, read) {
 
 const myLibrary = [];
 
-myLibrary.push(new Book('Shahnama', 'Ferdowsi', 300, true));
-myLibrary.push(new Book('Iliad', 'Homer', 400, false));
-myLibrary.push(new Book('McBeth', 'Shakespear', 500, false));
-myLibrary.push(new Book('Titanic', 'Cameron', 500, true));
-
-const showBooks = function () {
-    for (const book of myLibrary) {
-        console.log(book);
-    }
-}
 
 const addButton = document.querySelector('#open');
 const closeButton = document.querySelector('#close');
@@ -33,26 +23,11 @@ addButton.addEventListener('click', function() {
     dialog.showModal();
 })
 
-// Add books
-// remove button event listener function
-document.addEventListener('click', (e) => {
-    const element = e.target.closest('.remove');
-    if (element) {
-        myLibrary.splice(e.target.dataset.btn, 1);
-        titles.splice(e.target.dataset.btn);
-        e.target.closest('.new-cards').remove();
-    }
-})
-
-
 // Initialize titles array
 const titles = []
-for (const book of myLibrary) {
-    titles.push(book.title);
-}
 
 // Create book function
-const createCard = function (e) {
+const createBook = function (e) {
     e.preventDefault();
     dialog.close();
     const title = document.querySelector('#title').value;
@@ -64,35 +39,68 @@ const createCard = function (e) {
     if (titles.includes(title)) {
         alert('This book is already in the library')
     } else {
-        myLibrary.push(new Book(title, author, pages, read));
-        // New card
-        const newDiv = document.createElement('div');
-        newDiv.classList.add('new-cards');
-        newDiv.dataset.div = myLibrary.findIndex((x) => x.title === title);
-        cardsWrapper.appendChild(newDiv);
-
-
-    // Card contents
-    const titleEl = document.createElement('h3');
-    titleEl.textContent = title;
-    const authorEl = document.createElement('h3');
-    authorEl.textContent = author;
-    const pagesEl = document.createElement('h3');
-    pagesEl.textContent = pages
-    const readBtn = document.createElement('button');
-    readBtn.textContent = read === true ? 'Read' : 'Not read';
-    read === true ? readBtn.classList.add('read') : readBtn.classList.add('unread');
-    const removeBtn = document.createElement('button');
-    removeBtn.textContent = 'Remove';
-    removeBtn.classList.add('remove');
-    removeBtn.dataset.btn = myLibrary.findIndex((x) => x.title === title);
-    newDiv.append(titleEl, authorEl, pagesEl, readBtn, removeBtn);
-    titles.push(title);
+        addBookToLibrary (title, author, pages, read);
+        updateBookTitles (title);
+        displayLibrary ();
     }
 }
 
+const addBookToLibrary = function (title, author, pages, read) {
+    myLibrary.push(new Book(title, author, pages, read));
+}
 
-form.addEventListener('submit', function(e) {
-    createCard(e);
+const updateBookTitles = function (title) {
+    titles.push(title);
+}
+
+// Display all books in library
+const displayLibrary = function () {
+    cardsWrapper.innerHTML = '';
+    for (const book of myLibrary) {
+        const newDiv = document.createElement('div');
+        newDiv.classList.add('new-cards');
+        // newDiv.dataset.div = myLibrary.findIndex((x) => x.title === title);
+        cardsWrapper.appendChild(newDiv);
+        // Card contents
+        const titleEl = document.createElement('h3');
+        titleEl.textContent = book.title;
+        const authorEl = document.createElement('h3');
+        authorEl.textContent = book.author;
+        const pagesEl = document.createElement('h3');
+        pagesEl.textContent = book.pages
+        const readBtn = document.createElement('button');
+        readBtn.textContent = book.read === true ? 'Read' : 'Not read';
+        book.read === true ? readBtn.classList.add('read') : readBtn.classList.add('unread');
+        readBtn.dataset.btn = myLibrary.findIndex((x) => x.title === book.title)
+        const removeBtn = document.createElement('button');
+        removeBtn.textContent = 'Remove';
+        removeBtn.classList.add('remove');
+        removeBtn.dataset.btn = myLibrary.findIndex((x) => x.title === book.title);
+        newDiv.append(titleEl, authorEl, pagesEl, readBtn, removeBtn);
+    }
+}
+
+// Remove and change read status buttons
+cardsWrapper.addEventListener('click', (e) => {
+    e.preventDefault();
+    const el = e.target;
+    if (el.classList.contains('remove')) {
+        myLibrary.splice(e.target.dataset.btn, 1);
+        titles.splice(e.target.dataset.btn);
+        displayLibrary();
+    } else if (el.classList.contains('read')) {
+        el.classList.remove('read');
+        el.classList.add('unread');
+        el.textContent= ('Not read');
+    } else if (el.classList.contains('unread')) {
+        el.classList.remove('unread');
+        el.classList.add('read');
+        el.textContent= ('Read');
+    }
 })
 
+
+form.addEventListener('submit', function(e) {
+    createBook (e);
+
+})
