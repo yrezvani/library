@@ -1,57 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Personal Library</title>
-        <script src="./script.js" defer></script>
-        <link rel="stylesheet" href="./style.css" />
-    </head>
-    <body>
-        <h1>Personal Library</h1>
-        <button id="open">Add book</button>
-        <dialog>
-            <form action="">
-                <h3>Add new book</h3>
-                <div>
-                    <label for="title"></label>
-                    <input
-                        type="text"
-                        id="title"
-                        name="title"
-                        placeholder="Title"
-                        required
-                    />
-                </div>
-                <div>
-                    <label for="author"></label>
-                    <input
-                        type="text"
-                        id="author"
-                        name="author"
-                        placeholder="Author"
-                        required
-                    />
-                </div>
-                <div>
-                    <label for="pages"></label>
-                    <input
-                        type="text"
-                        id="pages"
-                        name="pages"
-                        placeholder="Number of pages"
-                        required
-                    />
-                </div>
-                <div>
-                    <label for="read">Have you read the book?</label>
-                    <input type="checkbox" id="read" name="read" />
-                </div>
-                <div>
-                    <input type="submit" id="submit" name="submit" />
-                </div>
-            </form>
-        </dialog>
-        <div class="cards-wrapper"></div>
-    </body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Personal Library</title>
+    <script src="./script.js" defer></script>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <h1>Personal Library</h1>
+    <button id="open">Add book</button>
+    <dialog>
+      <form action="">
+        <h3>Add new book</h3>
+        <div>
+          <label for="title"></label>
+          <input
+            type="text"
+            id="title"
+            name="title"
+            placeholder="Title"
+            maxlength="50"
+            required />
+        </div>
+        <div>
+          <label for="author"></label>
+          <input
+            type="text"
+            id="author"
+            name="author"
+            placeholder="Author"
+            required />
+        </div>
+        <div>
+          <label for="pages"></label>
+          <input
+            type="text"
+            id="pages"
+            name="pages"
+            placeholder="Number of pages"
+            min="50"
+            required />
+        </div>
+        <div>
+          <label for="read">Have you read the book?</label>
+          <input type="checkbox" id="read" name="read" />
+        </div>
+        <div>
+          <input type="submit" id="submit" name="submit" />
+        </div>
+      </form>
+    </dialog>
+    <div class="cards-wrapper"></div>
+  </body>
 </html>
